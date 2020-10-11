@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <title>Hello World!</title>
+        <title>Admin Page</title>
     </head>
     <body>
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-        <h3>This page is accessible to all logged in users regardless of their assigned roles</h3>
+        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]! You must be an admin-level user!</h1>
+        <h3>This page is only accessible to logged in users with the ADMIN role</h3>
         <p><a th:href="@{/home}">Home</a> <a th:href="@{/hello}">Hello</a> <a th:href="@{/admin}">Admin</a></p>
         <hr/>
 
