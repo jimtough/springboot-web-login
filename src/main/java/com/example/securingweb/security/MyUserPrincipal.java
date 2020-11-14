@@ -1,17 +1,20 @@
 package com.example.securingweb.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import com.example.securingweb.jpa.entity.User;
 import com.example.securingweb.jpa.entity.UserRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 public class MyUserPrincipal implements UserDetails {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(MyUserPrincipal.class);
 
 	private final static String ROLE_PREFIX = "ROLE_";
 
@@ -22,6 +25,10 @@ public class MyUserPrincipal implements UserDetails {
 		this.user = Objects.requireNonNull(user, "user cannot be null");
 		Objects.requireNonNull(userRoles, "userRoles cannot be null");
 		this.userRoles = new ArrayList<>(userRoles);
+		LOGGER.info("constructor | New instance of {} created | user: {} | roles: {}",
+				UserDetails.class.getSimpleName(),
+				user.getUsername(),
+				userRoles.stream().map((ur)->ur.getId().getRolename()).collect(Collectors.joining(",")));
 	}
 
 	@Override public Collection<? extends GrantedAuthority> getAuthorities() {

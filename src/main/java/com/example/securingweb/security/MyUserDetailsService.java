@@ -24,6 +24,7 @@ public class MyUserDetailsService implements UserDetailsService {
 	@PostConstruct
 	void postConstruct() {
 		LOGGER.info("postConstruct() | INVOKED");
+		LOGGER.info("postConstruct() | >>> This is my implementation of the Spring Security '{}' interface <<<", UserDetailsService.class.getSimpleName());
 	}
 
 	@Autowired
