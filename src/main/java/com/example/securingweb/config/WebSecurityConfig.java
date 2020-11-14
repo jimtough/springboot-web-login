@@ -13,7 +13,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
+				// allow anyone to view the / and /home paths
 				.antMatchers("/", "/home").permitAll()
+				// allow anyone to view the /actuator/* paths
+				.antMatchers("/actuator/*").permitAll()
+				// allow only authenticated users with the "ADMIN" role to view the /admin path
 				.antMatchers("/admin").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and()
